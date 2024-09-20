@@ -1,14 +1,23 @@
-/* @refresh reload */
-import { render } from "solid-js/web";
+import { type ParentComponent } from "solid-js";
 import "./index.css";
-import App from "./App";
+import { render } from "solid-js/web";
+import { Route, Router } from "@solidjs/router";
+import Home from "./views/home/Home";
 
-const root = document.getElementById("root");
-
-if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
-  throw new Error(
-    "Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got misspelled?"
+const App: ParentComponent = ({ children }) => {
+  return (
+    <>
+      <h1>Prio App</h1>
+      {children}
+    </>
   );
-}
+};
 
-render(() => <App />, root!);
+render(
+  () => (
+    <Router root={App}>
+      <Route path="/" component={Home} />
+    </Router>
+  ),
+  document.getElementById("root")!
+);
